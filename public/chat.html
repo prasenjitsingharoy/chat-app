@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="icon" href="./img/favicon.png">
+    <link rel="stylesheet" href="./css/styles.min.css">
+</head>
+<body>
+    <!-- chat messages container  -->
+    <div class="chat">
+        <div id="sidebar" class="chat__sidebar">
+            
+        </div>
+
+        <div class="chat__main">
+            <div id="messages" class="chat__messages"></div>
+
+            <div class="compose">
+                <form id="message-form">
+                    <input name="message" type="text" placeholder="Message" autocomplete="off" required> 
+                    <button id="submit">Submit</button>
+                </form>
+                <button id="send-location">Send Location</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- template for displaying messages of the user -->
+    <script id="message-template" type="text/html">
+        <div>
+            <p>
+                <span class="message__name">{{ username }}</span>
+                <span class="message__meta">{{ createdAt }}</span>
+            </p>
+            <p>{{message}}</p>
+        </div>
+    </script>
+
+    <!-- template for displaying current location of the user -->
+    <script id="location-template" type="text/html">
+        <div>
+            <p>
+                <span class="message__name">{{ username }}</span>
+                <span class="message__meta">{{ createdAt }}</span>
+            </p>
+            <p><a href="{{url}}" target="_blank">My Current Location</a></p>
+        </div>
+    </script>
+
+    <!-- template for displaying the name of the users currently in the room -->
+    <script id="sidebar-template" type="text/html">
+        <h2 class="room-title">{{ room }}</h2>
+        <h3 class="list-title">Users</h3>
+        <br>
+        <ul class="users">
+            <!-- To render an array of users, we have to use the below syntax -->
+            {{#users}}
+                <li>{{ username }}</li>
+                <br>
+            {{/users}}
+        </ul>
+    </script>
+
+    <!-- Mustache - used for rendering templates -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <!-- moment - used for date formatting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <!-- qs (query string) - to parse query strings -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <!-- socket.io - for client-server communication -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- chat script -->
+    <script src="./js/chat.js"></script>
+</body>
+</html>
